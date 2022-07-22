@@ -40,38 +40,15 @@ class LiveMusicAdapter(
             notifyDataSetChanged()
         }
     }
+    fun removeItem(position: Int) {
+        liveMusicList.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
 
     companion object {
         private const val TAG = "LiveMusicAdapter"
     }
-
-    private val musicFilter = object : Filter() {
-        override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val filteredList: ArrayList<LiveMusic> = ArrayList()
-            if (constraint == null || constraint.isEmpty()) {
-                initialLiveMusicList.let { filteredList.addAll(it) }
-            } else {
-                val query = constraint.toString().trim().toLowerCase()
-                initialLiveMusicList.forEach {
-                    if (it.name.toLowerCase(Locale.ROOT).contains(query)) {
-                        filteredList.add(it)
-                    }
-                }
-            }
-            val results = FilterResults()
-            results.values = filteredList
-            return results
-        }
-
-        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            if (results?.values is ArrayList<*>) {
-                liveMusicList = results.values as ArrayList<LiveMusic>
-                notifyDataSetChanged()
-            }
-        }
-    }
-
 
 
 

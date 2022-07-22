@@ -36,7 +36,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints">
 
+        <TextView android:id="@+id/music_name"
+            android:layout_width="wrap_content"
+            android:singleLine="true"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal"
+            android:text="name:"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
         <SeekBar
+            android:layout_below="@+id/music_name"
             android:id="@+id/sound_seekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

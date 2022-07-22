@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(), LiveMusicAdapter.LiveMusicAdapterListe
     lateinit var mediaPlayer: MediaPlayer
     lateinit var fabview: View
     lateinit var stopMusic: TextView
+    lateinit var musicName:TextView
     private var isgranted: Boolean = false
 
     companion object {
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity(), LiveMusicAdapter.LiveMusicAdapterListe
         musicView = findViewById(R.id.playview)
         progressbar = findViewById(R.id.sound_seekBar)
         stopMusic = findViewById(R.id.stop_music)
+        musicName=findViewById(R.id.music_name)
     }
 
     private fun config() {
@@ -137,6 +139,7 @@ class MainActivity : AppCompatActivity(), LiveMusicAdapter.LiveMusicAdapterListe
                 fabview.visibility = View.GONE
                 progressbar.max = finalTime
                 progressbar.progress = startTimer as Int
+                musicName.text=liveMusic.name
                 myHandler.postDelayed(UpdateSongTime, 100);
             }
 
@@ -151,10 +154,19 @@ class MainActivity : AppCompatActivity(), LiveMusicAdapter.LiveMusicAdapterListe
 
     override fun onClickAddMusic(liveMusic: LiveMusic, position: Int) {
         Log.d(TAG, "onClickAddMusic")
-        selectedMusicList.add(liveMusic)
-        if(selectedMusicList.size>0){
-            selectedMusic.text = selectedMusicList.size.toString().plus("/click hear to Add")
+        if(!selectedMusicList.contains(liveMusic)){
+            selectedMusicList.add(liveMusic)
+            if(selectedMusicList.size>0){
+                selectedMusic.text = selectedMusicList.size.toString().plus("/click hear to Add")
+            }
+            mLiveMusicAdapter!!.removeItem(position)
+
+        }else{
+            Toast.makeText(this@MainActivity, "Already selected", Toast.LENGTH_SHORT)
+                .show()
+
         }
+
 
     }
 
